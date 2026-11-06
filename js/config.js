@@ -1,0 +1,1 @@
+window.FGA_CONFIG={"ga4": "G-GGN2C5567L", "ym": "108659402"};
