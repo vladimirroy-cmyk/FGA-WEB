@@ -644,3 +644,183 @@ body.blueprint .lamp-cord .lamp-lbl{color:#ffc56b}
 .sound-btn[aria-pressed="false"] .wave{display:none}
 .haptic-proxy{position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none}
 @media (max-width:860px){.top-right{gap:10px}.sound-btn span{display:none}.lang-switch{font-size:9.5px}}
+/* === r4: телефон — компактная шапка, планшет — кнопка карты === */
+@media (max-width:860px) and (orientation:portrait){
+  .top-bar{display:grid;grid-template-columns:1fr auto auto auto;grid-template-rows:auto auto;align-items:center;column-gap:4px;row-gap:2px;min-height:0;height:auto}
+  .top-right{display:contents}
+  .logo-block{grid-column:1/4;grid-row:1;gap:10px}
+  .logo-mark{width:46px;height:46px}
+  .logo-word{width:140px;height:16.3px}
+  .tabs-nav{grid-column:1;grid-row:2;order:0;width:auto;justify-content:flex-start;gap:0}
+  .tabs-nav .tab-btn{padding:8px 0;min-height:40px}
+  .lang-switch{grid-column:2;grid-row:2}
+  .sound-btn{grid-column:3;grid-row:2}
+  .lamp-cord{grid-column:4;grid-row:1/3;align-self:start;margin-top:-16px;margin-bottom:0}
+}
+@media (max-height:500px) and (orientation:landscape){
+  .logo-mark{width:42px!important;height:42px!important}
+  .logo-word{width:128px!important;height:14.9px!important}
+  .top-bar{min-height:0}
+}
+@media (max-width:380px) and (orientation:portrait){
+  .logo-mark{width:40px!important;height:40px!important}
+  .logo-word{width:122px!important;height:14.2px!important}
+}
+.title-block .tb-addr .map-btn{white-space:nowrap}
+@media (max-width:1180px){.title-block .tb-addr .map-btn{margin-left:0}}
+/* === r5: рисование, сумерки, живой лист === */
+.sketch-wrapper{transform:perspective(1600px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:opacity .35s ease,transform .5s cubic-bezier(.2,.7,.2,1)}
+.sketch-wrapper.leaving{transform:perspective(1600px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(8px) scale(.985)}
+@media (pointer:fine){.sketch-wrapper canvas{filter:drop-shadow(var(--shx,0px) var(--shy,1.5px) 1.6px rgba(30,25,15,.16))}
+  body.blueprint .sketch-wrapper canvas{filter:drop-shadow(var(--shx,0px) var(--shy,1.5px) 2px rgba(0,6,18,.45))}}
+.sketch-wrapper::after{content:"";position:absolute;inset:-8%;pointer-events:none;opacity:0;transition:opacity .8s ease;
+  background:radial-gradient(circle at var(--gx,50%) var(--gy,40%),rgba(255,248,230,.55),transparent 42%);mix-blend-mode:soft-light}
+.sketch-wrapper.lit::after{opacity:1}
+body.blueprint .sketch-wrapper::after{background:radial-gradient(circle at var(--gx,50%) var(--gy,40%),rgba(140,180,255,.16),transparent 40%);mix-blend-mode:screen}
+body.kalka-open .sketch-wrapper::after{opacity:0}
+.pen{position:absolute;left:0;top:0;width:34px;height:34px;margin:-31px 0 0 -3px;transform-origin:3px 31px;pointer-events:none;opacity:0;transition:opacity .3s ease;z-index:3}
+.pen.on{opacity:1}
+.pen svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(2px 3px 2px rgba(0,0,0,.18))}
+.pen .pw{fill:#f2c94c;stroke:var(--text-main);stroke-width:1.2;stroke-linejoin:round}
+.pen .pc{fill:#ecd8b0;stroke:var(--text-main);stroke-width:1.2;stroke-linejoin:round}
+.pen .pt{fill:var(--text-main)}
+.pen .pb{stroke:var(--accent);stroke-width:3}
+.guides line{stroke:var(--text-muted);stroke-width:1;vector-effect:non-scaling-stroke;opacity:.4;fill:none}
+.guides{transition:opacity 1.4s ease}.guides.gone{opacity:0}
+.drafting-board::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;opacity:0;mix-blend-mode:multiply;
+  background:linear-gradient(180deg,#5d6cab 0%,#b98aae 42%,#ee9f6a 76%,#f7c07a 100%)}
+.drafting-board.dusk::before{animation:fgDusk 1.7s ease-in-out}
+.drafting-board.dawn::before{animation:fgDawn 1.1s ease-in-out;background:linear-gradient(180deg,#f7d9a8 0%,#f3c3a0 50%,#fbe7c8 100%);mix-blend-mode:soft-light}
+@keyframes fgDusk{0%{opacity:0}20%{opacity:.85}55%{opacity:.55}100%{opacity:0}}
+@keyframes fgDawn{0%{opacity:0}45%{opacity:.9}100%{opacity:0}}
+body.dusking,body.dusking *,body.dusking *::before,body.dusking *::after{transition-duration:1.2s!important;transition-delay:.3s!important}
+@media (prefers-reduced-motion:reduce){.sketch-wrapper{transform:none!important}.drafting-board::before{display:none}.pen{display:none}}
+/* === r6: снять кальку === */
+.reality{position:absolute;inset:0;overflow:hidden;z-index:2;pointer-events:none;clip-path:inset(0 0 0 calc(var(--rp,1)*100%));background:#d9d6cf}
+.reality[hidden]{display:none}
+.rl-bg{position:absolute;inset:-3%;background-size:cover;background-position:center;filter:blur(12px) saturate(.95)}
+.rl-img{position:absolute;max-width:none;height:auto;display:block;user-select:none}
+.rl-tag{position:absolute;right:10px;top:10px;padding:4px 8px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;
+  color:#fff;background:rgba(20,20,20,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .4s ease}
+.sketch-wrapper.rl-wide .rl-tag{opacity:1}
+.peel.mid{opacity:0!important;pointer-events:none}
+/* калька полупрозрачная: пока её поднимают, снимок слегка просвечивает и сквозь неё */
+.rl-under{position:absolute;inset:0;overflow:hidden;z-index:2;pointer-events:none;mix-blend-mode:multiply;opacity:0;transition:opacity .5s ease;
+  clip-path:inset(0 calc((1 - var(--rp,1))*100%) 0 0)}
+.rl-under[hidden]{display:none}
+.sketch-wrapper.peeling .rl-under{opacity:.2}
+body.blueprint .rl-under{mix-blend-mode:screen}
+.kalka-edge{position:absolute;top:-6px;bottom:-6px;left:calc(var(--rp,1)*100%);width:28px;margin-left:-14px;z-index:4;cursor:ew-resize;touch-action:none;opacity:0;transition:opacity .3s}
+.kalka-edge[hidden]{display:none}
+.sketch-wrapper.peeling .kalka-edge{opacity:1}
+.kalka-edge::before{content:"";position:absolute;left:13px;top:0;bottom:0;width:2px;background:linear-gradient(var(--bg-paper),#fff,var(--bg-paper));box-shadow:4px 0 10px rgba(0,0,0,.35),-10px 0 18px rgba(255,255,255,.55)}
+.ke-grip{position:absolute;left:4px;top:50%;width:20px;height:44px;margin-top:-22px;border:1px solid var(--border);background:var(--bg-paper);border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.ke-grip::before{content:"";position:absolute;left:6px;right:6px;top:15px;bottom:15px;border-left:1px solid var(--text-muted);border-right:1px solid var(--text-muted)}
+/* загнутый уголок кальки */
+.peel{position:absolute;right:-1px;bottom:-1px;z-index:5;display:flex;align-items:flex-end;justify-content:flex-end;gap:8px;padding:0;border:0;background:none;cursor:pointer;touch-action:none;
+  opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease;color:var(--text-main)}
+.peel[hidden]{display:none}
+.peel.ready{opacity:1;transform:none}
+.pl-c{order:2;width:46px;height:46px;position:relative;filter:drop-shadow(-3px -3px 4px rgba(0,0,0,.18));transition:width .3s ease,height .3s ease}
+.pl-c::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 50%,#fbfaf6 50%,#e9e6dc 100%);clip-path:polygon(100% 0,100% 100%,0 100%)}
+.pl-c::after{content:"";position:absolute;inset:0;background:linear-gradient(315deg,transparent 48%,rgba(0,0,0,.08) 50%,transparent 62%)}
+.peel:hover .pl-c,.peel:focus-visible .pl-c{width:58px;height:58px}
+.pl-t{order:1;margin-bottom:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);white-space:nowrap;
+  background:color-mix(in srgb,var(--bg-paper) 85%,transparent);padding:3px 6px}
+.peel.back .pl-c{opacity:0;width:0}
+.peel.back{right:8px;bottom:8px}
+.peel.back .pl-t{margin:0;border:1px solid var(--accent)}
+.peel:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+body.blueprint .rl-img,body.blueprint .rl-bg{filter:brightness(.72) saturate(.85)}
+body.blueprint .rl-bg{filter:blur(12px) brightness(.6)}
+body.blueprint .pl-c::before{background:linear-gradient(135deg,transparent 50%,#cfe0f5 50%,#9fb9da 100%)}
+body.kalka-open .peel,body.kalka-open .kalka-edge{display:none}
+.peel-m{display:none}
+@media (max-width:860px) and (orientation:portrait){
+  .sketch-wrapper.zoomed.peeling{animation-play-state:paused}
+  .peel{display:none!important}
+  .rl-tag{right:auto;left:50%;transform:translateX(-50%)}
+  .peel-m{display:inline-flex;position:absolute;left:16px;bottom:2px;z-index:4;align-items:center;gap:6px;min-height:32px;padding:4px 9px;
+    font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);
+    background:color-mix(in srgb,var(--bg-paper) 88%,transparent);border:1px solid var(--accent)}
+  .peel-m[hidden],body.kalka-open .peel-m{display:none}
+  .peel-m svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:1.4}
+  .peel-m[aria-pressed=true]{background:var(--accent);color:var(--bg-paper)}
+}
+@media (max-width:860px){
+  .pl-c{width:38px;height:38px}
+  .pl-t{font-size:9px}
+}
+/* === r7: услуги, ноутбуки, читаемость === */
+.tabs-nav{gap:26px}
+.svc-body{padding-top:2px}
+.svc-title{font-family:'Montserrat',sans-serif;font-weight:500;font-size:20px;margin-bottom:10px}
+.svc-list{list-style:none;counter-reset:svc;border-top:1px solid var(--text-main)}
+.svc-list li{counter-increment:svc;display:flex;align-items:baseline;gap:14px;padding:9px 2px;border-bottom:1px dashed var(--border);font-size:15px;line-height:1.3}
+.svc-list li::before{content:"0" counter(svc);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--accent-text);flex:none}
+.svc-stages{display:flex;gap:12px;align-items:baseline;margin-top:12px;font-size:13px;color:var(--text-muted)}
+.svc-stages b{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;font-weight:500;color:var(--text-main);flex:none}
+#services-overlay .bim-line{justify-content:flex-start;text-align:left}
+.svc-cta{display:inline-flex;margin-top:14px}
+.tl-dot:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:50%}
+/* читаемость мелких подписей */
+.title-block .k{font-size:10.5px}
+#cap-meta{font-size:10.5px}
+.tl-dot .tl-y{font-size:11px}
+.logo-text small{font-size:10.5px;letter-spacing:1.3px}
+.lamp-lbl{font-size:10.5px!important}
+.cap-more{font-size:11px}
+/* ноутбуки с невысоким экраном: шапка ниже, эскиз крупнее, описание в две строки */
+@media (min-width:861px) and (max-height:820px){
+  .logo-mark{width:58px;height:58px}
+  .top-bar{min-height:60px}
+  .canvas-stage{margin:4px 0 4px}
+}
+@media (min-width:861px) and (min-height:641px) and (max-height:760px){
+  .caption p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+}
+@media (max-width:860px){
+  .lang-switch button{font-size:11px}
+  .title-block .k{font-size:10px}
+  .zoom-btn,.peel-m{font-size:10.5px}
+  .title-block a[href^="tel"],.title-block a[href^="mailto"]{display:inline-block;padding:9px 0}
+  .svc-title{font-size:16px;margin-bottom:6px}
+  .svc-list li{font-size:13px;padding:7px 2px;gap:10px}
+  .svc-stages{font-size:11.5px;flex-direction:column;gap:2px}
+  #services-overlay .bim-line{font-size:10.5px}
+}
+@media (min-width:861px) and (max-height:820px){#tracing-overlay .tracing-foot{display:none}.svc-list li{padding:7px 2px}.svc-title{margin-bottom:6px}}
+@media (max-width:860px){
+  #services-overlay .bim-line{display:none}
+  .svc-stages{margin-top:8px}
+  .svc-cta{margin-top:10px}
+}
+@media (max-width:860px) and (max-height:700px){
+  .svc-title,.svc-stages{display:none}
+  .svc-list li{font-size:12px;padding:4px 2px}
+  .svc-cta{margin-top:6px;min-height:30px;padding:4px 12px}
+  #services-overlay .tracing-header{margin-bottom:4px}
+}
+@media (max-width:380px) and (orientation:portrait){.tabs-nav{gap:8px!important}.tab-btn{font-size:9px;letter-spacing:.4px}}
+@media (max-width:860px) and (orientation:portrait){
+  .tabs-nav{gap:14px}
+  /* калька «Основатели» целиком помещается на экран */
+  #tracing-overlay .tracing-foot{display:none}
+  #tracing-overlay .founder-sketch-avatar{width:100px;height:100px;margin-bottom:8px}
+  #tracing-overlay .founder-sketch-avatar .ph{width:90px;height:90px}
+  #tracing-overlay .bim-line{font-size:10.5px;text-align:left;margin-top:6px}
+}
+/* === r8: услуги — длинные строки на телефоне === */
+@media (max-width:860px){
+  .svc-title{display:none}
+  .svc-list li{font-size:12px;line-height:1.25;padding:6px 2px;gap:8px}
+  .svc-stages{font-size:11px;margin-top:6px}
+}
+@media (max-width:860px) and (max-height:700px){
+  .svc-list li{font-size:11px;padding:3px 2px}
+  .svc-list{border-top:0}
+  #services-overlay .tracing-header{display:none}
+  #services-overlay{padding-top:10px;padding-bottom:10px}
+  #services-overlay .svc-body{padding-right:24px}
+  .svc-cta{margin-top:5px}
+}
